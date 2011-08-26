@@ -1,0 +1,77 @@
+genmac(1)
+=========
+
+NAME
+----
+genmac - Generate a random MAC address
+
+SYNOPSIS
+--------
+[verse]
+'genmac' [OPTION...]
+
+DESCRIPTION
+-----------
+genmac generates a random MAC address, according to options.
+
+OPTIONS
+-------
+genmac accepts following options.
+
+-l::
+-local::
+        Generate a locally administered MAC address, as opposed to
+        globally unique MAC address.  This is the default behaviour.
+        If both '--local' and '--global' are used, one that comes last
+        in command line options takes precedence.
+
+-g::
+--global::
+        Generate a globally unique (OUI enforced) MAC address, as
+        opposed to locally administered MAC address.  If both
+        '--local' and '--global' are used, one that comes last in
+        command line options takes precedence.
+
+-u::
+--unicast::
+        Generate a unicast MAC address, as opposed to multicast MAC
+        address.  This is the default behaviour.  If both '--unicast'
+        and '--multicast' are used, one that comes last in command
+        line options takes precedence.
+
+-m::
+--multicast::
+        Generate a multicast MAC address, as opposed to unicast MAC
+        address.  If both '--unicast' and '--multicast' are used, one
+        that comes last in command line options takes precedence.
+
+-6::
+--eui48::
+        Generate a EUI-48 MAC address, as opposed to EUI-64 MAC
+        address.  This is the default behaviour.  If both '--eui48'
+        and '--eui64' are used, one that comes last in command line
+        options takes precedence.
+
+-8::
+--eui64::
+        Generate a EUI-64 MAC address, as opposed to EUI-48 MAC
+        address.  If both '--eui48' and '--eui64' are used, one that
+        comes last in command line options takes precedence.
+
+-V::
+--version::
+        Print version and exit with zero status.
+
+--usage::
+        Print usage and exit with zero status.
+
+--help::
+        Print help and exit with zero status.
+
+AUTHOR
+------
+Original author and current maintainer: mailto:vmj@linuxbox.fi[Mikko Värri].
+
+COPYRIGHT
+---------
+GNU GPLv3
