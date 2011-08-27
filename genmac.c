@@ -111,7 +111,7 @@ main(int argc, char** argv)
                 byte |= 1;
 
         printf("%02x", byte);
-        for (int i = 0; i < config.count; i++)
+        for (int i = 1; i < config.count; i++)
                 printf(":%02x", (uint8_t)rand());
         printf("\n");
 
