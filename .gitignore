@@ -1,0 +1,6 @@
+genmac
+genmac-*.tar.gz
+genmac.1
+*.html
+genmac.1.xml
+genmac.o
