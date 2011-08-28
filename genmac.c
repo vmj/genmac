@@ -155,6 +155,8 @@ main(int argc, char** argv)
         uint8_t byte = 0;
         config config = { TRUE, FALSE, 6 };
         int printed = 0;
+        char address[23];
+        char *p = address;
 
         /* Parse the command line options and argument */
         err = argp_parse(&argp, argc, argv, 0, NULL, &config);
@@ -176,18 +178,20 @@ main(int argc, char** argv)
         if (config.multicast)
                 byte |= 1;
 
-        printed = printf("%02x", byte);
+        printed = sprintf(p, "%02x", byte);
         if (printed < 0)
                 error(EXIT_FAILURE, -printed, "printf");
+        p += printed;
 
         /* Rest of the bytes can be fully random */
         while(--config.count)
         {
-                printed = printf(":%02x", (uint8_t)rand());
+                printed = sprintf(p, ":%02x", (uint8_t)rand());
                 if (printed < 0)
                         error(EXIT_FAILURE, -printed, "printf");
+                p += printed;
         }
 
-        printf("\n");
+        printf("%s\n", address);
         return 0;
 }
