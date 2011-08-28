@@ -22,6 +22,7 @@
 #include <stdio.h>     /* for printf() */
 #include <stdlib.h>    /* for rand()/srand() */
 #include <argp.h>      /* for arpg stuff */
+#include <error.h>     /* for error() */
 
 /* See info libc -> Argp Global Variables */
 
@@ -150,14 +151,15 @@ static const struct argp argp = { options, handle_option, NULL,
 int
 main(int argc, char** argv)
 {
-        int err = 0;
+        error_t err = 0;
         uint8_t byte = 0;
         config config = { TRUE, FALSE, 6 };
+        int printed = 0;
 
         /* Parse the command line options and argument */
         err = argp_parse(&argp, argc, argv, 0, NULL, &config);
         if (err)
-                return err;
+                error(EXIT_FAILURE, err, "argp_parse");
 
         /* Seed the random number generator */
         srand((unsigned int)getpid());
@@ -174,11 +176,17 @@ main(int argc, char** argv)
         if (config.multicast)
                 byte |= 1;
 
-        printf("%02x", byte);
+        printed = printf("%02x", byte);
+        if (printed < 0)
+                error(EXIT_FAILURE, -printed, "printf");
 
         /* Rest of the bytes can be fully random */
         while(--config.count)
-                printf(":%02x", (uint8_t)rand());
+        {
+                printed = printf(":%02x", (uint8_t)rand());
+                if (printed < 0)
+                        error(EXIT_FAILURE, -printed, "printf");
+        }
 
         printf("\n");
         return 0;
