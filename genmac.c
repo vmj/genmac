@@ -177,7 +177,7 @@ main(int argc, char** argv)
         printf("%02x", byte);
 
         /* Rest of the bytes can be fully random */
-        for (int i = 1; i < config.count; i++)
+        while(--config.count)
                 printf(":%02x", (uint8_t)rand());
 
         printf("\n");
