@@ -8,15 +8,32 @@
 
 // See info libc -> Argp Global Variables
 
+/**
+ * This is what '--version' shows (implemented by argp).
+ */
 const char * argp_program_version = "0.2";
+
+/**
+ * This is what '--help' shows as bug reporing address (implemented by
+ * argp).
+ */
 const char * argp_program_bug_address = "vmj@linuxbox.fi";
 
 // Local types
 
-typedef uint8_t bool;
-#define TRUE 1
-#define FALSE 0
+typedef uint8_t bool; ///< Boolean type.
+#define TRUE 1        ///< Boolean true.
+#define FALSE 0       ///< Boolean false.
 
+/**
+ * Configuration.  Filled during option parsing.
+ *
+ * @local #TRUE if locally administered MAC address should be generated.
+ *        #FALSE if globally unique MAC address should be generated.
+ * @multicast #TRUE if multicast MAC address should be generated. #FALSE
+ *            if unicast MAC address should be generated.
+ * @count Number of bytes to generate.
+ */
 typedef struct config config;
 struct config {
         bool local;
@@ -24,8 +41,16 @@ struct config {
         uint8_t count;
 };
 
-// Option table
-
+/**
+ * Vector of command line options.
+ *
+ * @name    Long option.
+ * @key     Short option (int).
+ * @arg     NULL or name of the option argument.
+ * @flags   Option flags.
+ * @doc     Option documentation or group header.
+ * @group   Group identity.
+ */
 static struct argp_option options[] = {
         { "local",     'l', NULL, 0,
           "Locally administered address (default)" },
@@ -42,8 +67,13 @@ static struct argp_option options[] = {
         { 0 }
 };
 
-// Option handler
-
+/**
+ * Command line option handler (callback).
+ *
+ * @key     Short option or special key.
+ * @arg     Option argument or non-option argument or NULL.
+ * @state   Argp parsing state.
+ */
 static error_t
 handle_option(int key, char* arg, struct argp_state *state)
 {
@@ -78,15 +108,28 @@ handle_option(int key, char* arg, struct argp_state *state)
         return err;
 }
 
-// Argument parser
-
+/**
+ * Argp parser.
+ *
+ * @options       NULL or pointer to a vector of argp_option structures.
+ * @parser        NULL or pointer to a option handing function.
+ * @args_doc      NULL or newline separated non-option names.
+ * @doc           NULL or vertical tab separated documentation.
+ * @childre       NULL or pointer to a vector of other parsers.
+ * @help_filter   NULL or pointer to a help filter function.
+ * @argp_domain   NULL or translation domain string.
+ */
 static const struct argp argp = { options, handle_option, NULL,
                                   "genmac - generate MAC address",
                                   NULL
 };
 
-// Main
-
+/**
+ * Entry point.
+ *
+ * @argc   Number of command line options and arguments.
+ * @argv   Vector of command line options and arguments.
+ */
 int
 main(int argc, char** argv)
 {
@@ -94,12 +137,16 @@ main(int argc, char** argv)
         uint8_t byte = 0;
         config config = { TRUE, FALSE, 6 };
 
+        // Parse the command line options and argument
         err = argp_parse(&argp, argc, argv, 0, NULL, &config);
         if (err)
                 return err;
 
+        // Seed the random number generator
         srand((unsigned int)getpid());
 
+        /* Two least significant bits of the first byte have a special
+           meaning */
         byte = (uint8_t)rand();
 
         byte <<= 1;
@@ -111,9 +158,11 @@ main(int argc, char** argv)
                 byte |= 1;
 
         printf("%02x", byte);
+
+        // Rest of the bytes can be fully random
         for (int i = 1; i < config.count; i++)
                 printf(":%02x", (uint8_t)rand());
-        printf("\n");
 
+        printf("\n");
         return 0;
 }
