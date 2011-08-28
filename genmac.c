@@ -16,14 +16,14 @@
  * You should have received a copy of the GNU General Public License along
  * with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#include <sys/types.h> // for pid_t
-#include <unistd.h>    // for getpid()
-#include <stdint.h>    // for uint8_t
-#include <stdio.h>     // for printf()
-#include <stdlib.h>    // for rand()/srand()
-#include <argp.h>      // for arpg stuff
+#include <sys/types.h> /* for pid_t */
+#include <unistd.h>    /* for getpid() */
+#include <stdint.h>    /* for uint8_t */
+#include <stdio.h>     /* for printf() */
+#include <stdlib.h>    /* for rand()/srand() */
+#include <argp.h>      /* for arpg stuff */
 
-// See info libc -> Argp Global Variables
+/* See info libc -> Argp Global Variables */
 
 /**
  * This is what '--version' shows (implemented by argp).
@@ -36,11 +36,11 @@ const char * argp_program_version = "0.2";
  */
 const char * argp_program_bug_address = "vmj@linuxbox.fi";
 
-// Local types
+/* Local types */
 
-typedef uint8_t bool; ///< Boolean type.
-#define TRUE 1        ///< Boolean true.
-#define FALSE 0       ///< Boolean false.
+typedef uint8_t bool; /**< Boolean type. */
+#define TRUE 1        /**< Boolean true. */
+#define FALSE 0       /**< Boolean false. */
 
 /**
  * Configuration.  Filled during option parsing.
@@ -154,12 +154,12 @@ main(int argc, char** argv)
         uint8_t byte = 0;
         config config = { TRUE, FALSE, 6 };
 
-        // Parse the command line options and argument
+        /* Parse the command line options and argument */
         err = argp_parse(&argp, argc, argv, 0, NULL, &config);
         if (err)
                 return err;
 
-        // Seed the random number generator
+        /* Seed the random number generator */
         srand((unsigned int)getpid());
 
         /* Two least significant bits of the first byte have a special
@@ -176,7 +176,7 @@ main(int argc, char** argv)
 
         printf("%02x", byte);
 
-        // Rest of the bytes can be fully random
+        /* Rest of the bytes can be fully random */
         for (int i = 1; i < config.count; i++)
                 printf(":%02x", (uint8_t)rand());
 
