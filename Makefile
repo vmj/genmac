@@ -23,7 +23,7 @@ distclean: clean
 	-@rm $(ALL) $(NAME)-*.tar.gz 2>/dev/null || true
 
 dist:
-	@$(MAKE) -s dist-internal VERSION=`grep _version $(NAME).c |sed -e 's/.* "//' -e 's/";//'`
+	@$(MAKE) -s dist-internal VERSION=`grep _version $(NAME).c |sed -e 's/.* "$(NAME) //' -e 's/"//'`
 
 install: all
 	mkdir -p $(DESTDIR)$(BINDIR)
