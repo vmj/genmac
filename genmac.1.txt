@@ -68,6 +68,11 @@ genmac accepts following options.
 --help::
         Print help and exit with zero status.
 
+EXIT STATUS
+-----------
+Normally, the exit status is zero.  In case of error, an error is
+printed to stardard error stream and the exit status is non-zero.
+
 AUTHOR
 ------
 Original author and current maintainer: mailto:vmj@linuxbox.fi[Mikko Värri].
