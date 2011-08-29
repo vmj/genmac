@@ -31,6 +31,13 @@ install: all
 	mkdir -p $(DESTDIR)$(MAN1DIR)
 	cp $(NAME).1 $(DESTDIR)$(MAN1DIR)/
 
+# Linux style, except -bl instead of -br, -nce instead of -ce, -ci8
+# instead of -ci4, -l74 instead of -l80, and -psl instead of -npsl.
+# Also, added -nut and -bli0.
+indent:
+	@indent -npro -linux -bl -nce -ci8 -l74 -psl -nut -bli0 $(NAME).c
+	-@rm $(NAME).c~
+
 dist-internal:
 	-@rm -rf $(NAME)-$(VERSION) $(NAME)-$(VERSION).tar.gz 2>/dev/null || true
 	@mkdir $(NAME)-$(VERSION)
