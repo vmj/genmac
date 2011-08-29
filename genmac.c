@@ -16,20 +16,20 @@
  * You should have received a copy of the GNU General Public License along
  * with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#include <sys/types.h> /* for pid_t */
-#include <unistd.h>    /* for getpid() */
-#include <stdint.h>    /* for uint8_t */
-#include <stdio.h>     /* for printf() */
-#include <stdlib.h>    /* for rand()/srand() */
-#include <argp.h>      /* for arpg stuff */
-#include <error.h>     /* for error() */
+#include <sys/types.h>          /* for pid_t */
+#include <unistd.h>             /* for getpid() */
+#include <stdint.h>             /* for uint8_t */
+#include <stdio.h>              /* for printf() */
+#include <stdlib.h>             /* for rand()/srand() */
+#include <argp.h>               /* for arpg stuff */
+#include <error.h>              /* for error() */
 
 /* See info libc -> Argp Global Variables */
 
 /**
  * This is what '--version' shows (implemented by argp).
  */
-const char * argp_program_version = "genmac 0.2"
+const char *argp_program_version = "genmac 0.2"
         "\nCopyright (C) 2011 Mikko Värri"
         "\nLicense GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>"
         "\nThis is free software: you are free to change and redistribute it."
@@ -40,7 +40,7 @@ const char * argp_program_version = "genmac 0.2"
  * argp).  We're abusing it to implement the GNU Coding Conventions for
  * '--help' option.
  */
-const char * argp_program_bug_address = "vmj@linuxbox.fi"
+const char *argp_program_bug_address = "vmj@linuxbox.fi"
         "\ngenmac home page: <http://linuxbox.fi/~vmj/genmac/>"
         "\nGeneral help using GNU software: <http://www.gnu.org/gethelp/>";
 
@@ -77,19 +77,19 @@ struct config {
  * @group   Group identity.
  */
 static struct argp_option options[] = {
-        { "local",     'l', NULL, 0,
-          "Locally administered address (default)" },
-        { "global",    'g', NULL, 0,
-          "Globally unique (OUI enforced) address" },
-        { "unicast",   'u', NULL, 0,
-          "Unicast address (default)" },
-        { "multicast", 'm', NULL, 0,
-          "Multicast address" },
-        { "eui48",     '6', NULL, 0,
-          "EUI-48 address" },
-        { "eui64",     '8', NULL, 0,
-          "EUI-64 address" },
-        { 0 }
+        {"local", 'l', NULL, 0,
+         "Locally administered address (default)"},
+        {"global", 'g', NULL, 0,
+         "Globally unique (OUI enforced) address"},
+        {"unicast", 'u', NULL, 0,
+         "Unicast address (default)"},
+        {"multicast", 'm', NULL, 0,
+         "Multicast address"},
+        {"eui48", '6', NULL, 0,
+         "EUI-48 address"},
+        {"eui64", '8', NULL, 0,
+         "EUI-64 address"},
+        {0}
 };
 
 /**
@@ -100,10 +100,10 @@ static struct argp_option options[] = {
  * @state   Argp parsing state.
  */
 static error_t
-handle_option(int key, char* arg, struct argp_state *state)
+handle_option(int key, char *arg, struct argp_state *state)
 {
         error_t err = 0;
-        config *config = (struct config*) state->input;
+        config *config = (struct config *)state->input;
 
         switch (key)
         {
@@ -145,8 +145,8 @@ handle_option(int key, char* arg, struct argp_state *state)
  * @argp_domain   NULL or translation domain string.
  */
 static const struct argp argp = { options, handle_option, NULL,
-                                  "genmac - generate MAC address",
-                                  NULL
+        "genmac - generate MAC address",
+        NULL
 };
 
 /**
@@ -156,7 +156,7 @@ static const struct argp argp = { options, handle_option, NULL,
  * @argv   Vector of command line options and arguments.
  */
 int
-main(int argc, char** argv)
+main(int argc, char **argv)
 {
         error_t err = 0;
         uint8_t byte = 0;
@@ -175,7 +175,7 @@ main(int argc, char** argv)
 
         /* Two least significant bits of the first byte have a special
            meaning */
-        byte = (uint8_t)rand();
+        byte = (uint8_t) rand();
 
         byte <<= 1;
         if (config.local)
@@ -191,9 +191,9 @@ main(int argc, char** argv)
         p += printed;
 
         /* Rest of the bytes can be fully random */
-        while(--config.count)
+        while (--config.count)
         {
-                printed = sprintf(p, ":%02x", (uint8_t)rand());
+                printed = sprintf(p, ":%02x", (uint8_t) rand());
                 if (printed < 0)
                         error(EXIT_FAILURE, -printed, "printf");
                 p += printed;
