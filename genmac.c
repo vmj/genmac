@@ -29,7 +29,7 @@
 /**
  * This is what '--version' shows (implemented by argp).
  */
-const char *argp_program_version = "genmac 0.2"
+const char *argp_program_version = "genmac 0.3"
         "\nCopyright (C) 2011 Mikko Värri"
         "\nLicense GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>"
         "\nThis is free software: you are free to change and redistribute it."
