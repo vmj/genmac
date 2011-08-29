@@ -5,7 +5,7 @@ MANDIR ?= $(PREFIX)/man
 MAN1DIR ?= $(MANDIR)/man1
 
 CC ?= gcc
-CFLAGS ?= -Wshadow -std=c89
+CFLAGS ?= -Wshadow -std=c89 -D_GNU_SOURCE
 LDFLAGS ?=
 
 NAME=genmac
