@@ -59,8 +59,8 @@ typedef uint8_t bool; /**< Boolean type. */
  *            if unicast MAC address should be generated.
  * @count Number of bytes to generate.
  */
-typedef struct config config;
-struct config {
+typedef struct config_t config_t;
+struct config_t {
         bool local;
         bool multicast;
         uint8_t count;
@@ -103,7 +103,7 @@ static error_t
 handle_option(int key, char *arg, struct argp_state *state)
 {
         error_t err = 0;
-        config *config = (struct config *)state->input;
+        config_t *config = (config_t *)state->input;
 
         switch (key)
         {
@@ -160,7 +160,7 @@ main(int argc, char **argv)
 {
         error_t err = 0;
         uint8_t byte = 0;
-        config config = { TRUE, FALSE, 6 };
+        config_t config = { TRUE, FALSE, 6 };
         int printed = 0;
         char address[23];
         char *p = address;
