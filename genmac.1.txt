@@ -58,6 +58,16 @@ genmac accepts following options.
         address.  If both '--eui48' and '--eui64' are used, one that
         comes last in command line options takes precedence.
 
+-0::
+--null::
+        Instead of printing a trailing newline, print a trailing null
+        byte ('\0').
+
+-n::
+--none::
+        Do not output the trailing newline (or trailing null byte, if
+        '--null' was also used).
+
 -V::
 --version::
         Print version and exit with zero status.

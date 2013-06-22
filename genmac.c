@@ -1,7 +1,7 @@
 /*
  * genmac - Generate a random MAC address.
  *
- * Copyright (C) 2011 Mikko Värri (vmj@linuxbox.fi)
+ * Copyright (C) 2013 Mikko Värri (vmj@linuxbox.fi)
  *
  * This program is free software: you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the
@@ -30,7 +30,7 @@
  * This is what '--version' shows (implemented by argp).
  */
 const char *argp_program_version = "genmac 0.3"
-        "\nCopyright (C) 2011 Mikko Värri"
+        "\nCopyright (C) 2013 Mikko Värri"
         "\nLicense GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>"
         "\nThis is free software: you are free to change and redistribute it."
         "\nThere is NO WARRANTY, to the extent permitted by law.";
@@ -64,6 +64,8 @@ struct config_t {
         bool local;
         bool multicast;
         uint8_t count;
+        bool terminate;
+        uint8_t terminating_byte;
 };
 
 /**
@@ -89,6 +91,10 @@ static struct argp_option options[] = {
          "EUI-48 address"},
         {"eui64", '8', NULL, 0,
          "EUI-64 address"},
+        {"null", '0', NULL, 0,
+         "Output a trailing null character"},
+        {"none", 'n', NULL, 0,
+         "Do not output the trailing newline"},
         {0}
 };
 
@@ -125,6 +131,12 @@ handle_option(int key, char *arg, struct argp_state *state)
         case '8':
                 config->count = 8;
                 break;
+        case '0':
+                config->terminating_byte = '\0';
+                break;
+        case 'n':
+                config->terminate = FALSE;
+                break;
         default:
                 err = ARGP_ERR_UNKNOWN;
                 break;
@@ -160,7 +172,7 @@ main(int argc, char **argv)
 {
         error_t err = 0;
         uint8_t byte = 0;
-        config_t config = { TRUE, FALSE, 6 };
+        config_t config = { TRUE, FALSE, 6, TRUE, '\n' };
         int printed = 0;
         char address[23];
         char *p = address;
@@ -199,6 +211,8 @@ main(int argc, char **argv)
                 p += printed;
         }
 
-        printf("%s\n", address);
+        printf("%s", address);
+        if (config.terminate)
+                printf("%c", config.terminating_byte);
         return 0;
 }
