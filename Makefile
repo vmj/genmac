@@ -5,14 +5,15 @@ MANDIR ?= $(PREFIX)/man
 MAN1DIR ?= $(MANDIR)/man1
 
 CC ?= gcc
-CFLAGS ?= -Wall -Wshadow -std=c89 -D_GNU_SOURCE
+CFLAGS ?= -Wall -Wshadow
+CFLAGS += -std=c89 -D_GNU_SOURCE
 LDFLAGS ?=
 
 NAME=genmac
 
 ALL=$(NAME) $(NAME).1 $(NAME).1.html index.html
 
-.PHONY: all clean distclean dist install dist-internal
+.PHONY: all clean distclean dist install indent dist-internal
 
 all: $(ALL)
 
@@ -38,10 +39,10 @@ indent:
 	@indent -npro -linux -bl -nce -ci8 -l74 -psl -nut -bli0 $(NAME).c
 	-@rm $(NAME).c~
 
-dist-internal:
+dist-internal: index.html
 	-@rm -rf $(NAME)-$(VERSION) $(NAME)-$(VERSION).tar.gz 2>/dev/null || true
 	@mkdir $(NAME)-$(VERSION)
-	@cp -r LICENSE.txt Makefile $(NAME).c $(NAME).1.txt README.rst $(NAME)-$(VERSION)/
+	@cp -r LICENSE.txt Makefile $(NAME).c $(NAME).1.txt README.rst index.html $(NAME)-$(VERSION)/
 	@tar czf $(NAME)-$(VERSION).tar.gz $(NAME)-$(VERSION)
 	@rm -rf $(NAME)-$(VERSION)
 
