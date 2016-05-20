@@ -58,6 +58,10 @@ typedef uint8_t bool; /**< Boolean type. */
  * @multicast #TRUE if multicast MAC address should be generated. #FALSE
  *            if unicast MAC address should be generated.
  * @count Number of bytes to generate.
+ * @terminate #TRUE if terminating byte should be printed.  This is the
+ *            default.  #FALSE if terminating byte should not be printed.
+ * @terminating_byte Terminating byte to print if enabled.  Newline by
+ *                   default.
  */
 typedef struct config_t config_t;
 struct config_t {
