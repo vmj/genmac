@@ -1,7 +1,7 @@
 /*
  * genmac - Generate a random MAC address.
  *
- * Copyright (C) 2013 Mikko Värri (vmj@linuxbox.fi)
+ * Copyright (C) 2016 Mikko Värri (mikko@varri.fi)
  *
  * This program is free software: you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the
@@ -30,7 +30,7 @@
  * This is what '--version' shows (implemented by argp).
  */
 const char *argp_program_version = "genmac 0.4"
-        "\nCopyright (C) 2013 Mikko Värri"
+        "\nCopyright (C) 2016 Mikko Värri"
         "\nLicense GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>"
         "\nThis is free software: you are free to change and redistribute it."
         "\nThere is NO WARRANTY, to the extent permitted by law.";
@@ -40,7 +40,7 @@ const char *argp_program_version = "genmac 0.4"
  * argp).  We're abusing it to implement the GNU Coding Conventions for
  * '--help' option.
  */
-const char *argp_program_bug_address = "vmj@linuxbox.fi"
+const char *argp_program_bug_address = "mikko@varri.fi"
         "\ngenmac home page: <http://linuxbox.fi/~vmj/genmac/>"
         "\nGeneral help using GNU software: <http://www.gnu.org/gethelp/>";
 

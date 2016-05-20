@@ -85,7 +85,7 @@ printed to stardard error stream and the exit status is non-zero.
 
 AUTHOR
 ------
-Original author and current maintainer: mailto:vmj@linuxbox.fi[Mikko Värri].
+Original author and current maintainer: mailto:mikko@varri.fi[Mikko Värri].
 
 COPYRIGHT
 ---------

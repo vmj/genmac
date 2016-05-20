@@ -44,7 +44,7 @@ Authors
 =======
 
 Original author and current maintainer is Mikko Värri
-(vmj@linuxbox.fi).
+(mikko@varri.fi).
 
 
 License
