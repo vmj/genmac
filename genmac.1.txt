@@ -81,7 +81,7 @@ genmac accepts following options.
 EXIT STATUS
 -----------
 Normally, the exit status is zero.  In case of error, an error is
-printed to stardard error stream and the exit status is non-zero.
+printed to standard error stream and the exit status is non-zero.
 
 AUTHOR
 ------

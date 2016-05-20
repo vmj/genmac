@@ -21,7 +21,7 @@
 #include <stdint.h>             /* for uint8_t */
 #include <stdio.h>              /* for printf() */
 #include <stdlib.h>             /* for rand()/srand() */
-#include <argp.h>               /* for arpg stuff */
+#include <argp.h>               /* for argp stuff */
 #include <error.h>              /* for error() */
 
 /* See info libc -> Argp Global Variables */
@@ -36,7 +36,7 @@ const char *argp_program_version = "genmac 0.4"
         "\nThere is NO WARRANTY, to the extent permitted by law.";
 
 /**
- * This is what '--help' shows as bug reporing address (implemented by
+ * This is what '--help' shows as bug reporting address (implemented by
  * argp).  We're abusing it to implement the GNU Coding Conventions for
  * '--help' option.
  */
@@ -152,7 +152,7 @@ handle_option(int key, char *arg, struct argp_state *state)
  * @parser        NULL or pointer to a option handing function.
  * @args_doc      NULL or newline separated non-option names.
  * @doc           NULL or vertical tab separated documentation.
- * @childre       NULL or pointer to a vector of other parsers.
+ * @children      NULL or pointer to a vector of other parsers.
  * @help_filter   NULL or pointer to a help filter function.
  * @argp_domain   NULL or translation domain string.
  */
