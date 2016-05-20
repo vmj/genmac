@@ -4,3 +4,5 @@ genmac.1
 *.html
 genmac.1.xml
 genmac.o
+.idea
+*.iml
