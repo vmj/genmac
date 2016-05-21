@@ -6,4 +6,4 @@ addons:
     packages:
       - asciidoc
       - xmlto
-      - docutils
+      - python-docutils
