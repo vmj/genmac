@@ -25,8 +25,12 @@ shows a typical invocation::
 Requirements
 ============
 
-GNU make and GNU C libraries on Linux.  No attempt has been made
-towards portability.  Take this as a challenge.
+At runtime, GNU C libraries on Linux.
+
+To compile, GNU Make, AsciiDoc, xmlto, and Docutils is required.  On Debian
+based systems, you can install asciidoc, xmlto, and python-docutils packages.
+On Slackware, linuxdoc-tools contains the asciidoc and xmlto tools, and
+docutils is available from SlackBuilds.org.
 
 
 Installation
