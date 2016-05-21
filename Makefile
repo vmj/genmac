@@ -9,6 +9,8 @@ CFLAGS ?= -Wall -Wshadow
 CFLAGS += -std=c89 -D_GNU_SOURCE
 LDFLAGS ?=
 
+RST2HTML ?= $(or $(shell which rst2html 2>/dev/null), $(shell which rst2html.py 2>/dev/null))
+
 NAME=genmac
 
 ALL=$(NAME) $(NAME).1 $(NAME).1.html index.html
@@ -66,7 +68,7 @@ $(NAME).1: $(NAME).1.xml
 # HTML Documentation
 
 index.html: README.rst
-	rst2html.py $< $@
+	$(RST2HTML) $< $@
 
 $(NAME).1.html: $(NAME).1.txt
 	asciidoc -b html -d manpage -o $@ $<
