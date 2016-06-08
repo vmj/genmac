@@ -9,8 +9,6 @@ CFLAGS ?= -Wall -Wshadow
 CFLAGS += -std=c89 -D_GNU_SOURCE
 LDFLAGS ?=
 
-RST2HTML ?= $(or $(shell which rst2html 2>/dev/null), $(shell which rst2html.py 2>/dev/null))
-
 NAME=genmac
 
 ALL=$(NAME) $(NAME).1 $(NAME).1.html index.html
@@ -44,7 +42,7 @@ indent:
 dist-internal: index.html
 	-@rm -rf $(NAME)-$(VERSION) $(NAME)-$(VERSION).tar.gz 2>/dev/null || true
 	@mkdir $(NAME)-$(VERSION)
-	@cp -r LICENSE.txt Makefile $(NAME).c $(NAME).1.txt README.rst index.html $(NAME)-$(VERSION)/
+	@cp -r LICENSE.txt Makefile $(NAME).c $(NAME).1.txt README.adoc index.html $(NAME)-$(VERSION)/
 	@tar czf $(NAME)-$(VERSION).tar.gz $(NAME)-$(VERSION)
 	@rm -rf $(NAME)-$(VERSION)
 
@@ -67,8 +65,8 @@ $(NAME).1: $(NAME).1.xml
 
 # HTML Documentation
 
-index.html: README.rst
-	$(RST2HTML) $< $@
+index.html: README.adoc
+	asciidoc -b html -o $@ $<
 
 $(NAME).1.html: $(NAME).1.txt
 	asciidoc -b html -d manpage -o $@ $<
