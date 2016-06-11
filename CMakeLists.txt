@@ -12,8 +12,8 @@ install_path (BINDIR bin)
 install_path (MANDIR man)
 install_path (MAN1DIR ${MANDIR}/man1)
 
-# TODO: add -Wall -Wshadow to CFLAGS, if it is not already defined
-# TODO: add -std=c89 -D_GNU_SOURCE to FLAGS (regardless of its current value)
+add_definitions(-Wall -Wshadow)
+add_definitions(-std=c89 -D_GNU_SOURCE)
 
 find_program (ASCIIDOC asciidoc DOC "Full path to AsciiDoc executable; required for building the manual page")
 find_program (XMLTO xmlto DOC "Full path to xmlto executable; required for building the manual page")
