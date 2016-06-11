@@ -1,6 +1,7 @@
 cmake_minimum_required (VERSION 2.8.7)
 
 project (genmac C)
+set(PROJECT_VERSION 0.4)
 
 macro (install_path _DIR _DEFAULT)
   if (NOT ${_DIR})
@@ -24,8 +25,14 @@ find_program (XMLTO xmlto DOC "Full path to xmlto executable; required for build
 
 # TODO: add custom command/target indent
 
+configure_file(
+  ${PROJECT_SOURCE_DIR}/version.h.in
+  ${PROJECT_BINARY_DIR}/version.h
+  @ONLY)
+include_directories(${PROJECT_BINARY_DIR})
+
 # Executable
-add_executable(genmac genmac.c)
+add_executable(genmac genmac.c version.h)
 install (TARGETS genmac DESTINATION "${BINDIR}")
 
 # Manual page
