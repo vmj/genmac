@@ -1,7 +1,6 @@
 = genmac -- Generate a random MAC address
 :toc: left
 :icons: font
-:source-highlighter: pygments
 
 genmac provides a program for producing a random MAC address.
 You can specify, via command line options, what kind of address to generate.
@@ -15,16 +14,19 @@ You can specify, via command line options, what kind of address to generate.
 The program http://www.linuxbox.fi/~vmj/genmac/genmac.1.html[genmac(1)] produces a single MAC address.
 Following shows a typical invocation:
 
-[source,sh]
 ----
 $ genmac --local --unicast --eui48
 ----
 
 == Requirements
 
-At runtime, GNU C libraries on Linux.
+At runtime, standard C libraries.
 
-To compile, GNU Make, AsciiDoc, and xmlto are required.
+To compile, CMake, a C compiler and standard C headers are required.
+CMake will generate platform specific build files, so platform specific build environment is required.
+For Unix type of systems like Linux, a 'make' command is enough.
+
+To rebuild the documentations, AsciiDoc and xmlto are required.
 On Debian based systems, you can install `asciidoc` and `xmlto` packages.
 On Slackware, `linuxdoc-tools` contains both the `asciidoc` and `xmlto` tools.
 
@@ -34,7 +36,6 @@ Download and extract the source distribution.
 This project is using CMake as the build tool.
 To build and install the project, issue the following commands:
 
-[source,sh]
 ----
 $ mkdir build     # <1>
 $ cd build        # <2>
