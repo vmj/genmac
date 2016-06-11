@@ -1,8 +1,6 @@
 = genmac -- Generate a random MAC address
 :toc: left
-:sectnums:
 :icons: font
-:source-highlighter: coderay
 
 genmac provides a program for producing a random MAC address.
 You can specify, via command line options, what kind of address to generate.
@@ -22,20 +20,50 @@ $ genmac --local --unicast --eui48
 
 == Requirements
 
-At runtime, GNU C libraries on Linux.
+At runtime, standard C libraries.
 
-To compile, GNU Make, AsciiDoc, and xmlto are required.
+To compile, CMake, a C compiler and standard C headers are required.
+CMake will generate platform specific build files, so platform specific build environment is required.
+For Unix type of systems like Linux, a 'make' command is enough.
+
+To rebuild the documentations, AsciiDoc and xmlto are required.
 On Debian based systems, you can install `asciidoc` and `xmlto` packages.
 On Slackware, `linuxdoc-tools` contains both the `asciidoc` and `xmlto` tools.
 
-== Installation
+== Installation (from source)
 
-Type `make install` to install the binary into '/usr/local/bin' and
-manual page to '/usr/local/man/man1'.
+Download and extract the source distribution.
+This project is using CMake as the build tool.
+To build and install the project, issue the following commands:
 
-You can also define `PREFIX` to install genmac in a different prefix:
-`make install PREFIX=/usr` for example.
-Similarly, there's `DESTDIR`, `BINDIR`, `MANDIR`, and `MAN1DIR` for those who need them.
+----
+$ mkdir build     # <1>
+$ cd build        # <2>
+$ cmake ../       # <3>
+$ cmake --build . # <4>
+$ make install    # <5>
+----
+<1> Create an out-of-source build directory
+<2> Change the current working directory to the new directory
+<3> Generate the platform specific build files (the '../' is the path to the extracted source; it does not have to be the parent directory as in the example above)
+<4> Build the project
+<5> Install the binaries and documentation
+
+By default, the binaries are installed in '/usr/local/bin'
+and the manual is installed in '/usr/local/man/man1'.
+
+In order to install in some other prefix than '/usr/local',
+use the `CMAKE_INSTALL_PREFIX` cache variable in step 3 like so:
+`cmake -DCMAKE_INSTALL_PREFIX=/usr ../`.
+The 'bin' and 'man' paths under the installation prefix can also be changed
+using the `BINDIR`, `MANDIR`, and `MAN1DIR` cache variables.
+Their value must be relative to the installation prefix.
+
+During the installation (step 5),
+a staged installation can be achieved by defining the `DESTDIR` environment variable.
+For example: `make install DESTDIR=/tmp/package-genmac`.
+
+For more details, read the CMake manuals.
 
 == Authors
 
