@@ -18,10 +18,9 @@ add_definitions(-std=c89 -D_GNU_SOURCE)
 
 find_program (ASCIIDOC asciidoc DOC "Full path to AsciiDoc executable; required for building the manual page")
 find_program (XMLTO xmlto DOC "Full path to xmlto executable; required for building the manual page")
-
-# TODO: check what cmake does with clean/distclean
-
-# TODO: check whether cpack can be used instead of my own dist target
+find_program (MKDIR mkdir DOC "Full path to mkdir executable; required for building the source distribution")
+find_program (CP cp DOC "Full path to cp executable; required for building the source distribution")
+find_program (TAR tar DOC "Full path to tar executable; required for building the source distribution")
 
 # TODO: add custom command/target indent
 
@@ -72,4 +71,32 @@ add_custom_command(
   )
 add_custom_target(html ALL
   DEPENDS ${PROJECT_BINARY_DIR}/index.html ${PROJECT_BINARY_DIR}/genmac.1.html
+  )
+
+# Source distribution
+add_custom_command(
+  OUTPUT ${PROJECT_BINARY_DIR}/genmac-${PROJECT_VERSION}.tar.gz
+  COMMAND
+    ${MKDIR}
+  ARGS
+    ${PROJECT_BINARY_DIR}/genmac-${PROJECT_VERSION}
+  COMMAND
+    ${CP}
+  ARGS
+    ${PROJECT_SOURCE_DIR}/LICENSE.txt
+    ${PROJECT_SOURCE_DIR}/CMakeLists.txt
+    ${PROJECT_SOURCE_DIR}/genmac.c
+    ${PROJECT_SOURCE_DIR}/genmac.1.txt
+    ${PROJECT_SOURCE_DIR}/README.adoc
+    ${PROJECT_SOURCE_DIR}/version.h.in
+    ${PROJECT_BINARY_DIR}/genmac-${PROJECT_VERSION}/
+  COMMAND
+    ${TAR}
+  ARGS
+    czf ${PROJECT_BINARY_DIR}/genmac-${PROJECT_VERSION}.tar.gz
+    -C ${PROJECT_BINARY_DIR}
+    genmac-${PROJECT_VERSION}
+  )
+add_custom_target(dist
+  DEPENDS ${PROJECT_BINARY_DIR}/genmac-${PROJECT_VERSION}.tar.gz
   )
