@@ -1,7 +1,7 @@
 cmake_minimum_required (VERSION 2.8.7)
 
 project (genmac C)
-set(PROJECT_VERSION 0.4)
+set(PROJECT_VERSION 0.5)
 
 macro (install_path _DIR _DEFAULT)
   if (NOT ${_DIR})
